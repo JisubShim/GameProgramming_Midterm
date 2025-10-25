@@ -4,26 +4,40 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [Header("¼³Á¤")]
+    [Header("ì„¸íŒ…")]
     [SerializeField] private GameSystem _gameSystem;
     [SerializeField] private Slider _hpBar;
     [SerializeField] private float _maxHp = 100f;
     [SerializeField] private float _hpDecreaseSpeed = 1f;
 
-    [Header("ÇÇ°Ý È¿°ú")]
+    [Header("í”¼ê²© ê´€ë ¨")]
     [SerializeField] private float _invincibilityDuration = 2f;
     [SerializeField] private float _blinkSpeed = 0.1f;
+
+    [Header("ì‚¬ê²© ê´€ë ¨")]
+    [SerializeField] private Transform _gunTransform;
+    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] private Transform _muzzlePoint;
+    [SerializeField] private float _gunRotationSpeed = 100f;
+    [SerializeField] private float _bulletSpeed = 20f;
+    [SerializeField] private float _fireRate = 0.5f;
+    [SerializeField] private int _maxBullets = 3;
 
     private float _currentHp;
     private Animator _playerAnimator;
     private SpriteRenderer _spriteRenderer;
     private bool _isInvincible = false;
+    private float _nextFireTime = 0f;
+
+    private bool _canShoot = false;
+    private int _bulletsFired = 0;
 
     private void Awake()
     {
         _playerAnimator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _currentHp = _maxHp;
+        Initialize();
     }
 
     public void Initialize()
@@ -33,11 +47,67 @@ public class Player : MonoBehaviour
         _hpBar.value = _currentHp;
         _isInvincible = false;
         _spriteRenderer.color = Color.white;
+        _nextFireTime = 0f;
+
+        SetCanShoot(false);
     }
 
     private void Update()
     {
         GetDamage(_hpDecreaseSpeed * Time.deltaTime, true);
+
+        HandleGunInput();
+    }
+
+    private void HandleGunInput()
+    {
+        if (!_canShoot) return;
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            RotateGun(1);
+        }
+        else if (Input.GetKey(KeyCode.E))
+        {
+            RotateGun(-1);
+        }
+
+        if (Input.GetKey(KeyCode.W) && Time.time >= _nextFireTime)
+        {
+            Shoot();
+            _nextFireTime = Time.time + _fireRate;
+        }
+    }
+
+    private void RotateGun(int direction)
+    {
+        _gunTransform.Rotate(0, 0, _gunRotationSpeed * direction * Time.deltaTime);
+    }
+
+    private void Shoot()
+    {
+        GameObject newBullet = Instantiate(_bulletPrefab, _muzzlePoint.position, _muzzlePoint.rotation);
+        Rigidbody2D bulletRb = newBullet.GetComponent<Rigidbody2D>();
+
+        bulletRb.linearVelocity = _muzzlePoint.right * _bulletSpeed;
+
+        _bulletsFired++;
+        if (_bulletsFired >= _maxBullets)
+        {
+            SetCanShoot(false);
+        }
+    }
+
+    public void SetCanShoot(bool canShoot)
+    {
+        _canShoot = canShoot;
+        _gunTransform.gameObject.SetActive(canShoot);
+
+        if (canShoot)
+        {
+            _gunTransform.localRotation = Quaternion.Euler(0, 0, 0);
+            _bulletsFired = 0;
+        }
     }
 
     public void Heal(float amount)
