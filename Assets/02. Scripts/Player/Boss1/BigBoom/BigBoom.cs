@@ -6,22 +6,25 @@ public class BigBoom : MonoBehaviour
     [SerializeField] private GameObject _warningLine;
     [SerializeField] private float _initialWarningTime = 2f;
     [SerializeField] private float _moveSpeed = 10f;
-    [SerializeField] private GameObject _player;
+    [SerializeField] private float _damage = 10f;
+    [SerializeField] private GameObject _playerGO;
 
     private Animator _bigBoomAnimator;
+    private Player _player;
     private bool _isMoving = false;
     private bool _isBoom = false;
 
     private void Awake()
     {
         _bigBoomAnimator = GetComponent<Animator>();
+        _player = _playerGO.GetComponent<Player>();
     }
 
     void OnEnable()
     {
         _isBoom = false;
         _isMoving = false;
-        gameObject.transform.position = new Vector3(_player.transform.position.x, 6.5f, _player.transform.position.z);
+        gameObject.transform.position = new Vector3(_playerGO.transform.position.x, 6.5f, _playerGO.transform.position.z);
         StartCoroutine(StartWarningCoroutine());
     }
 
@@ -62,6 +65,7 @@ public class BigBoom : MonoBehaviour
         {
             _bigBoomAnimator.SetTrigger("isBoom");
             _isBoom = true;
+            _player.GetDamage(_damage);
         }
     }
 }
