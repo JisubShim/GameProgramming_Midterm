@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BigBoom : MonoBehaviour
+public class BigBomb : MonoBehaviour
 {
     [SerializeField] private GameObject _warningLine;
     [SerializeField] private float _initialWarningTime = 2f;

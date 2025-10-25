@@ -6,9 +6,11 @@ public enum Boss1State
     None, Idle, Attack, Hitable, Dead
 }
 
-public class Boss1StateSystem : MonoBehaviour
+public class Boss1StateController : MonoBehaviour
 {
     [SerializeField] private Boss1State _currentState;
+    [SerializeField] private Boss1PatternSystem _patternSystem;
+    [SerializeField] private GroundController[] _groundControllers;
     private Boss1State _previousState;
 
     private Dictionary<Boss1State, IState> _stateDictionary;
@@ -22,7 +24,7 @@ public class Boss1StateSystem : MonoBehaviour
         _stateDictionary = new Dictionary<Boss1State, IState>
         {
             { Boss1State.Idle,          new Boss1IdleState(this, boss1) },
-            { Boss1State.Attack,       new Boss1AttackState(this, boss1) },
+            { Boss1State.Attack,       new Boss1AttackState(this, boss1, _patternSystem) },
             { Boss1State.Hitable,       new Boss1HitableState(this, boss1) }
         };
     }
@@ -34,6 +36,7 @@ public class Boss1StateSystem : MonoBehaviour
 
     private void Initialize(Boss1State startingState)
     {
+        SetActiveObstacle(true);
         _previousState = startingState;
         _currentState = startingState;
         _stateDictionary[_currentState].Enter();
@@ -53,6 +56,12 @@ public class Boss1StateSystem : MonoBehaviour
         _stateDictionary[_previousState].Enter();
         _previousState = _currentState;
         _currentState = temp;
+    }
+
+    public void SetActiveObstacle(bool isActive)
+    {
+        _groundControllers[0].SetActiveObstacle(isActive);
+        _groundControllers[1].SetActiveObstacle(isActive);
     }
 
     private void Update()

@@ -23,11 +23,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!_isJump && Input.GetKey(KeyCode.D))
+        if (!_isJump && Input.GetKey(KeyCode.RightArrow))
         {
             _playerRigidbody.linearVelocity = new Vector2(_speed, _playerRigidbody.linearVelocity.y);
         }
-        else if (!_isJump && Input.GetKey(KeyCode.A))
+        else if (!_isJump && Input.GetKey(KeyCode.LeftArrow))
         {
             _playerRigidbody.linearVelocity = new Vector2(-_speed, _playerRigidbody.linearVelocity.y);
         }

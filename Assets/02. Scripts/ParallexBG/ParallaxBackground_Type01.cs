@@ -2,24 +2,18 @@ using UnityEngine;
 
 public class ParallaxBackground_Type01 : MonoBehaviour
 {
-    [SerializeField]
-    private Transform target;               // 현재 배경과 이어지는 배경
-    [SerializeField]
-    private float scrollAmount;     // 이어지는 두 배경 사이의 거리
-    [SerializeField]
-    private float moveSpeed;            // 이동 속도
-    [SerializeField]
-    private Vector3 moveDirection;      // 이동 방향
+    [SerializeField] private Transform _target;
+    [SerializeField] private float _moveSpeed;
+    private float _scrollAmount = 18f;
+    private Vector3 _moveDirection = new Vector3(-1f, 0f, 0f);
 
     private void Update()
     {
-        // 배경이 moveDirection 방향으로 moveSpeed의 속도로 이동
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        transform.position += _moveDirection * _moveSpeed * Time.deltaTime;
 
-        // 배경이 설정된 범위를 벗어나면 위치 재설정
-        if (transform.position.x <= -scrollAmount)
+        if (transform.position.x <= -_scrollAmount)
         {
-            transform.position = target.position - moveDirection * scrollAmount;
+            transform.position = _target.position - _moveDirection * _scrollAmount;
         }
     }
 }
