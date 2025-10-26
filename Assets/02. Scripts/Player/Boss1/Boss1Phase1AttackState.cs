@@ -23,6 +23,7 @@ public class Boss1Phase1AttackState : IBossState
         {
             _boss1.Speak("¸Ó¸® À§ ÆøÅº Á¶½ÉÇÏ¶ó°í~");
             _patternSystem.PlayDropBombOnPlayer(count: 3, duration: 3f, initialWarningTime: 2f, moveSpeed: 10f);
+            //_patternSystem.PlayThrowBombToPlayer(3, 4f, 8f, 2f);
         }
         else if(_playCount % 2 == 1)
         {
@@ -39,7 +40,7 @@ public class Boss1Phase1AttackState : IBossState
 
     public void Update()
     {
-        if (_patternSystem.IsEnd_BigBomb)
+        if (_patternSystem.IsEnd)
         {
             _boss1StateController.TransitionTo(Boss1State.Idle);
         }

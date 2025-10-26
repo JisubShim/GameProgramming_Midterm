@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Boss1DeadState : IBossState
@@ -15,6 +16,7 @@ public class Boss1DeadState : IBossState
     {
         _boss1.Speak("으악! 내가 지다니...");
         _boss1.Boss1Animator.SetTrigger("isDead");
+        StartDeadCoroutine();
     }
 
     public void Exit()
@@ -24,6 +26,16 @@ public class Boss1DeadState : IBossState
 
     public void Update()
     {
+    }
 
+    public void StartDeadCoroutine()
+    {
+        _boss1.StartCoroutine(DeadCoroutine());
+    }
+
+    private IEnumerator DeadCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneLoader.Instance.LoadScene("EndingScene");
     }
 }
