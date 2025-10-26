@@ -46,17 +46,9 @@ public class Boss1 : MonoBehaviour
 
         _currentHp -= amount;
 
-        if (_currentHp <= 0)
+        if (!isContinuousDamage)
         {
-            _currentHp = 0;
-            Die();
-        }
-        else
-        {
-            if (!isContinuousDamage)
-            {
-                StartCoroutine(InvincibilityCoroutine());
-            }
+            StartCoroutine(InvincibilityCoroutine());
         }
     }
 
@@ -80,12 +72,6 @@ public class Boss1 : MonoBehaviour
 
         _spriteRenderer.color = Color.white;
         _isInvincible = false;
-    }
-
-    // 죽음
-    private void Die()
-    {
-
     }
 
     // 대사 말하기

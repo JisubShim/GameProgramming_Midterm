@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum Boss1State
 {
-    None, Idle, Attack, Hitable, Dead
+    None, Idle, Attack, Dead
 }
 
 public class Boss1StateController : MonoBehaviour
@@ -11,9 +11,10 @@ public class Boss1StateController : MonoBehaviour
     [SerializeField] private Boss1State _currentState;
     [SerializeField] private Boss1PatternSystem _patternSystem;
     [SerializeField] private GroundController[] _groundControllers;
+    private Boss1 _boss1;
     private Boss1State _previousState;
 
-    private Dictionary<Boss1State, IState> _stateDictionary;
+    private Dictionary<Boss1State, IBossState> _stateDictionary;
     private Boss1Phase2AttackState _phase2AttackState;
     private Boss1Phase3AttackState _phase3AttackState;
 
@@ -22,16 +23,16 @@ public class Boss1StateController : MonoBehaviour
 
     private void Awake()
     {
-        Boss1 boss1 = GetComponent<Boss1>();
+        _boss1 = GetComponent<Boss1>();
 
-        _phase2AttackState = new Boss1Phase2AttackState(this, boss1, _patternSystem);
-        _phase3AttackState = new Boss1Phase3AttackState(this, boss1, _patternSystem);
+        _phase2AttackState = new Boss1Phase2AttackState(this, _boss1, _patternSystem);
+        _phase3AttackState = new Boss1Phase3AttackState(this, _boss1, _patternSystem);
 
-        _stateDictionary = new Dictionary<Boss1State, IState>
+        _stateDictionary = new Dictionary<Boss1State, IBossState>
         {
-            { Boss1State.Idle,          new Boss1IdleState(this, boss1) },
-            { Boss1State.Attack,       new Boss1Phase1AttackState(this, boss1, _patternSystem) },
-            { Boss1State.Hitable,       new Boss1HitableState(this, boss1) }
+            { Boss1State.Idle,          new Boss1IdleState(this, _boss1) },
+            { Boss1State.Attack,       new Boss1Phase1AttackState(this, _boss1, _patternSystem) },
+            { Boss1State.Dead,       new Boss1DeadState(this, _boss1) }
         };
     }
 
@@ -85,6 +86,11 @@ public class Boss1StateController : MonoBehaviour
 
     private void Update()
     {
+        if(_boss1.CurrentHp <= 0)
+        {
+            TransitionTo(Boss1State.Dead);
+        }
+
         _stateDictionary[_currentState].Update();
     }
 }

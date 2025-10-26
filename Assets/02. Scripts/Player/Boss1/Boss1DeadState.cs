@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class Boss1HitableState : IState
+public class Boss1DeadState : IBossState
 {
     private Boss1StateController _boss1StateSystem;
     private Boss1 _boss1;
 
-    public Boss1HitableState(Boss1StateController boss1StateSystem, Boss1 boss1)
+    public Boss1DeadState(Boss1StateController boss1StateSystem, Boss1 boss1)
     {
         _boss1StateSystem = boss1StateSystem;
         _boss1 = boss1;
@@ -13,16 +13,17 @@ public class Boss1HitableState : IState
 
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        _boss1.Speak("으악! 내가 지다니...");
+        _boss1.Boss1Animator.SetTrigger("isDead");
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+
     }
 
     public void Update()
     {
-        throw new System.NotImplementedException();
+
     }
 }

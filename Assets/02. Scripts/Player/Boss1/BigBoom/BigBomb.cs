@@ -36,13 +36,6 @@ public class BigBomb : MonoBehaviour
         gameObject.transform.position = _originalPosition;
     }
 
-    public void StartBoom(float initialWarningTime, float moveSpeed)
-    {
-        _initialWarningTime = initialWarningTime;
-        _moveSpeed = moveSpeed;
-        StartCoroutine(StartWarningCoroutine());
-    }
-
     void Update()
     {
         if (_isBoom)
@@ -54,6 +47,13 @@ public class BigBomb : MonoBehaviour
         {
             transform.Translate(Vector2.down * _moveSpeed * Time.deltaTime);
         }
+    }
+
+    public void StartBoom(float initialWarningTime, float moveSpeed)
+    {
+        _initialWarningTime = initialWarningTime;
+        _moveSpeed = moveSpeed;
+        StartCoroutine(StartWarningCoroutine());
     }
 
     private IEnumerator StartWarningCoroutine()

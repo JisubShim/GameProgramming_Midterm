@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Boss1Phase3AttackState : IState
+public class Boss1Phase3AttackState : IBossState
 {
     private Boss1StateController _boss1StateController;
     private Boss1 _boss1;

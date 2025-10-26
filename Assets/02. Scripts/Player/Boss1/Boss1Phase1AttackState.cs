@@ -1,7 +1,7 @@
 using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
-public class Boss1Phase1AttackState : IState
+public class Boss1Phase1AttackState : IBossState
 {
     private Boss1StateController _boss1StateController;
     private Boss1 _boss1;

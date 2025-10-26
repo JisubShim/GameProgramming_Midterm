@@ -1,4 +1,4 @@
-public interface IState
+public interface IBossState
 {
     public void Enter();
     public void Update();
