@@ -24,4 +24,12 @@ public class Boss1PatternSystem : MonoBehaviour
     {
         _throwableBombSystem.PlayThrowBombToPlayer(amount, duration, arcHeight, travelTime);
     }
+
+    // All Stop
+
+    public void StopAll()
+    {
+        _bigBombSystem.StopAll();
+        _throwableBombSystem.StopAll();
+    }
 }

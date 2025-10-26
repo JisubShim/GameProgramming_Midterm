@@ -92,4 +92,10 @@ public class BigBombSystem : MonoBehaviour
         yield return new WaitForSeconds(3f);
         _isEnd = true;
     }
+
+    public void StopAll()
+    {
+        _isEnd = true;
+        StopAllCoroutines();
+    }
 }

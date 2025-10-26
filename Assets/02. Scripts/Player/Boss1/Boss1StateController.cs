@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum Boss1State
 {
-    None, Idle, Attack, Dead
+    None, Idle, Attack, NextPhase, Dead
 }
 
 public class Boss1StateController : MonoBehaviour
@@ -21,6 +21,9 @@ public class Boss1StateController : MonoBehaviour
     public Boss1State CurrentState => _currentState;
     private int _phase = 1;
 
+    private bool _isFirstNextPhase2 = true;
+    private bool _isFirstNextPhase3 = true;
+
     private void Awake()
     {
         _boss1 = GetComponent<Boss1>();
@@ -32,6 +35,7 @@ public class Boss1StateController : MonoBehaviour
         {
             { Boss1State.Idle,          new Boss1IdleState(this, _boss1) },
             { Boss1State.Attack,       new Boss1Phase1AttackState(this, _boss1, _patternSystem) },
+            { Boss1State.NextPhase,       new Boss1NextPhaseState(this, _boss1, _patternSystem) },
             { Boss1State.Dead,       new Boss1DeadState(this, _boss1) }
         };
     }
@@ -89,6 +93,20 @@ public class Boss1StateController : MonoBehaviour
         if(_boss1.CurrentHp <= 0)
         {
             TransitionTo(Boss1State.Dead);
+        }
+
+
+        if (_boss1.CurrentHp <= 7 && _isFirstNextPhase2)
+        {
+            _isFirstNextPhase2 = false;
+            _boss1.Speak("조금 진심을 내볼까?");
+            TransitionTo(Boss1State.NextPhase);
+        }
+        else if (_boss1.CurrentHp <= 4 && _isFirstNextPhase3)
+        {
+            _isFirstNextPhase3 = false;
+            _boss1.Speak("젠장! 내 진심을 보여주마!");
+            TransitionTo(Boss1State.NextPhase);
         }
 
         _stateDictionary[_currentState].Update();

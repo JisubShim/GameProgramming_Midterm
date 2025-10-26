@@ -42,4 +42,10 @@ public class ThrowableBombSystem : MonoBehaviour
         }
         _isEnd = true;
     }
+
+    public void StopAll()
+    {
+        _isEnd = true;
+        StopAllCoroutines();
+    }
 }

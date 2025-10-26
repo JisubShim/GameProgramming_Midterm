@@ -10,6 +10,7 @@ public class Boss1 : MonoBehaviour
     public int CurrentHp => _currentHp;
 
     [Header("피격 효과")]
+    [SerializeField] private GameObject _barrierGO;
     [SerializeField] private float _invincibilityDuration = 2f;
     [SerializeField] private float _blinkSpeed = 0.1f;
     private bool _isInvincible = false;
@@ -22,6 +23,8 @@ public class Boss1 : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _boss1DialogueTMP;
     [SerializeField] private TextMeshProUGUI _boss1HpTMP;
     [SerializeField] private float _dialogueTextRunTime = 3f;
+
+    private Coroutine _invincibleCoroutine;
 
     void Awake()
     {
@@ -48,18 +51,26 @@ public class Boss1 : MonoBehaviour
 
         if (!isContinuousDamage)
         {
-            StartCoroutine(InvincibilityCoroutine());
+            _invincibleCoroutine = StartCoroutine(InvincibilityCoroutine(_invincibilityDuration));
         }
     }
 
-    private IEnumerator InvincibilityCoroutine()
+    public void ActivateInvincible(bool isInvincible)
+    {
+        StopCoroutine(_invincibleCoroutine);
+        _barrierGO.SetActive(isInvincible);
+        _isInvincible = isInvincible;
+        _spriteRenderer.color = Color.white;
+    }
+
+    private IEnumerator InvincibilityCoroutine(float invincibilityDuration)
     {
         _isInvincible = true;
 
         float timer = 0f;
         Color blinkColor = new Color(1f, 0.2f, 0.2f, 0.5f);
 
-        while (timer < _invincibilityDuration)
+        while (timer < invincibilityDuration)
         {
             _spriteRenderer.color = blinkColor;
             yield return new WaitForSeconds(_blinkSpeed);

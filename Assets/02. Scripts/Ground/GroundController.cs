@@ -51,7 +51,6 @@ public class GroundController : MonoBehaviour
         if (_itemSpawnTimer > 0)
         {
             _itemSpawnTimer -= Time.deltaTime / 2f;
-            Debug.Log(_itemSpawnTimer);
         }
         else
         {
