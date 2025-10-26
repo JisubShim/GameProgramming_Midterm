@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class Boss1 : MonoBehaviour
@@ -6,22 +7,32 @@ public class Boss1 : MonoBehaviour
     [Header("설정")]
     [SerializeField] private int _maxHp = 10;
     private int _currentHp = 10;
+    public int CurrentHp => _currentHp;
 
     [Header("피격 효과")]
     [SerializeField] private float _invincibilityDuration = 2f;
     [SerializeField] private float _blinkSpeed = 0.1f;
     private bool _isInvincible = false;
     private SpriteRenderer _spriteRenderer;
+    private Animator _boss1Animator;
+    public Animator Boss1Animator => _boss1Animator;
+
+    [Header("대사 관련")]
+    [SerializeField] private GameObject _dialogueTextGO;
+    [SerializeField] private TextMeshProUGUI _boss1DialogueTMP;
+    [SerializeField] private TextMeshProUGUI _boss1HpTMP;
+    [SerializeField] private float _dialogueTextRunTime = 3f;
 
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _boss1Animator = GetComponent<Animator>();
         _currentHp = _maxHp;
     }
 
     void Update()
     {
-        
+        _boss1HpTMP.text = "HP: " + _currentHp;
     }
 
     public void Heal(int amount)
@@ -71,9 +82,24 @@ public class Boss1 : MonoBehaviour
         _isInvincible = false;
     }
 
+    // 죽음
     private void Die()
     {
 
+    }
+
+    // 대사 말하기
+    public void Speak(string dialogue)
+    {
+        StartCoroutine(SpeakCoroutine(dialogue));
+    }
+
+    private IEnumerator SpeakCoroutine(string dialogue)
+    {
+        _boss1DialogueTMP.text = dialogue;
+        _dialogueTextGO.SetActive(true);
+        yield return new WaitForSeconds(_dialogueTextRunTime);
+        _dialogueTextGO.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

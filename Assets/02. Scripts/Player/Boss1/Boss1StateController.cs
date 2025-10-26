@@ -14,17 +14,23 @@ public class Boss1StateController : MonoBehaviour
     private Boss1State _previousState;
 
     private Dictionary<Boss1State, IState> _stateDictionary;
+    private Boss1Phase2AttackState _phase2AttackState;
+    private Boss1Phase3AttackState _phase3AttackState;
 
     public Boss1State CurrentState => _currentState;
+    private int _phase = 1;
 
     private void Awake()
     {
         Boss1 boss1 = GetComponent<Boss1>();
 
+        _phase2AttackState = new Boss1Phase2AttackState(this, boss1, _patternSystem);
+        _phase3AttackState = new Boss1Phase3AttackState(this, boss1, _patternSystem);
+
         _stateDictionary = new Dictionary<Boss1State, IState>
         {
             { Boss1State.Idle,          new Boss1IdleState(this, boss1) },
-            { Boss1State.Attack,       new Boss1AttackState(this, boss1, _patternSystem) },
+            { Boss1State.Attack,       new Boss1Phase1AttackState(this, boss1, _patternSystem) },
             { Boss1State.Hitable,       new Boss1HitableState(this, boss1) }
         };
     }
@@ -62,6 +68,19 @@ public class Boss1StateController : MonoBehaviour
     {
         _groundControllers[0].SetActiveObstacle(isActive);
         _groundControllers[1].SetActiveObstacle(isActive);
+    }
+
+    public void GoNextPhase()
+    {
+        _phase++;
+        if (_phase == 2)
+        {
+            _stateDictionary[Boss1State.Attack] = _phase2AttackState;
+        }
+        else if (_phase == 3)
+        {
+            _stateDictionary[Boss1State.Attack] = _phase3AttackState;
+        }
     }
 
     private void Update()

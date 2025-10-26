@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class Boss1PatternSystem : MonoBehaviour
 {
-    [SerializeField] BigBombSystem _bigBombSystem;
+    [SerializeField] private BigBombSystem _bigBombSystem;
+    public bool IsEnd_BigBomb => _bigBombSystem.IsEnd;
 
-    public void PlayBigBombPattern(int count, float duration)
+    public void PlayDropBombOnPlayer(int count, float duration, float initialWarningTime, float moveSpeed)
     {
-        _bigBombSystem.Boom(count, duration);
+        _bigBombSystem.DropBombOnPlayer(count, duration, initialWarningTime, moveSpeed);
+    }
+
+    public void PlayDropMultipleBombs(int count, float initialWarningTime, float moveSpeed)
+    {
+        _bigBombSystem.DropMultipleBombs(count, initialWarningTime, moveSpeed);
     }
 }
