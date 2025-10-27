@@ -5,6 +5,11 @@ public class TimelineSceneChanger : MonoBehaviour
 {
     private string _nextSceneName = "InGameScene";
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayBGM("PrologueBGM");
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))

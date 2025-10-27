@@ -39,6 +39,11 @@ public class EndingResult : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayBGM("EndingBGM");
+    }
+
     void Update()
     {
         if(_isEnd && Input.GetKeyDown(KeyCode.Alpha1))

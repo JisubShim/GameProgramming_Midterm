@@ -13,6 +13,7 @@ public class LobbyController : MonoBehaviour
 
     void Start()
     {
+        SoundManager.Instance.PlayBGM("TitleBGM");
         if(GameManager.Instance.BestRecord == 0f)
         {
             _bestRecordText.text = "최고 기록: -, 기록없음";
@@ -50,6 +51,7 @@ public class LobbyController : MonoBehaviour
 
     private void OnStartButtonClicked()
     {
+        SoundManager.Instance.PlaySFX("GameStart");
         SceneLoader.Instance.LoadScene(_prologueSceneName);
     }
 

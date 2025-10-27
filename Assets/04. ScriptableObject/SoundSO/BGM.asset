@@ -17,3 +17,15 @@ MonoBehaviour:
     description: 
     clip: {fileID: 8300000, guid: 0828dc5e9525af84db5cd541b1ed6b35, type: 3}
     volume: 0.5
+  - name: TitleBGM
+    description: 
+    clip: {fileID: 8300000, guid: cfc8a8ad9ac5130479478df82c3a2d61, type: 3}
+    volume: 0.5
+  - name: PrologueBGM
+    description: 
+    clip: {fileID: 8300000, guid: 85be268a10e35d64898abcfc008ed545, type: 3}
+    volume: 0.3
+  - name: EndingBGM
+    description: 
+    clip: {fileID: 8300000, guid: 3fa7b8ba1396afe4e91ebf459b5133b5, type: 3}
+    volume: 0.5

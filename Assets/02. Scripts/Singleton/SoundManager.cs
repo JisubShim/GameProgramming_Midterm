@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -145,5 +146,32 @@ public class SoundManager : Singleton<SoundManager>
     public void SetSFXVolume(float volume)
     {
         _globalSfxVolume = Mathf.Clamp01(volume);
+    }
+
+    public void StopBGM()
+    {
+        if (_bgmPlayer != null)
+        {
+            _bgmPlayer.Stop();
+        }
+
+        if (_bgmSequenceCoroutine != null)
+        {
+            StopCoroutine(_bgmSequenceCoroutine);
+            _bgmSequenceCoroutine = null;
+        }
+    }
+
+    public void StopAllSFX()
+    {
+        AudioSource[] allAudioSources = FindObjectsOfType<AudioSource>();
+
+        foreach (AudioSource source in allAudioSources)
+        {
+            if (source != _bgmPlayer)
+            {
+                Destroy(source.gameObject);
+            }
+        }
     }
 }

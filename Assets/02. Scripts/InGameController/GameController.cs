@@ -18,6 +18,9 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         _isGameOver = true;
+        SoundManager.Instance.StopAllSFX();
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlaySFX("GameOver");
         foreach(var go in _activeFalseGOs)
         {
             go.SetActive(false);

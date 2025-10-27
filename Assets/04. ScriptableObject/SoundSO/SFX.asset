@@ -53,3 +53,15 @@ MonoBehaviour:
     description: 
     clip: {fileID: 8300000, guid: 94124d669e12ffc44bff561441ee9076, type: 3}
     volume: 1
+  - name: GameClear
+    description: 
+    clip: {fileID: 8300000, guid: d02461a30a1d9e346b722d2d7af0a9b9, type: 3}
+    volume: 1
+  - name: GameOver
+    description: 
+    clip: {fileID: 8300000, guid: 579b9880dc8352b4ea2db078a9491049, type: 3}
+    volume: 1
+  - name: GameStart
+    description: 
+    clip: {fileID: 8300000, guid: 0adf0f09b925fde4c9f819ceb73f6a26, type: 3}
+    volume: 1
