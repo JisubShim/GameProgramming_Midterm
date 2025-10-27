@@ -20,12 +20,16 @@ public class Boss1StateController : MonoBehaviour
 
     public Boss1State CurrentState => _currentState;
     private int _phase = 1;
+    public int Phase => _phase;
 
     private bool _isFirstNextPhase2 = true;
     private bool _isFirstNextPhase3 = true;
 
+    public static bool IsDead = false;
+
     private void Awake()
     {
+        IsDead = false;
         _boss1 = GetComponent<Boss1>();
 
         _phase2AttackState = new Boss1Phase2AttackState(this, _boss1, _patternSystem);
@@ -96,7 +100,7 @@ public class Boss1StateController : MonoBehaviour
         }
 
 
-        if (_boss1.CurrentHp <= 7 && _isFirstNextPhase2)
+        if (_boss1.CurrentHp <= 8 && _isFirstNextPhase2)
         {
             _isFirstNextPhase2 = false;
             _boss1.Speak("조금 진심을 내볼까?");

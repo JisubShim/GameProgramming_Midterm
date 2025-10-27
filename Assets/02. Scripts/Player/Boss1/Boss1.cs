@@ -5,8 +5,8 @@ using UnityEngine;
 public class Boss1 : MonoBehaviour
 {
     [Header("설정")]
-    [SerializeField] private int _maxHp = 10;
-    private int _currentHp = 10;
+    [SerializeField] private int _maxHp = 12;
+    private int _currentHp;
     public int CurrentHp => _currentHp;
 
     [Header("피격 효과")]

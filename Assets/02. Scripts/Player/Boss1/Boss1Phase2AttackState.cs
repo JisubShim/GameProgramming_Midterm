@@ -7,9 +7,9 @@ public class Boss1Phase2AttackState : IBossState
     private Boss1PatternSystem _patternSystem;
     private int _playCount = 0;
 
-    public Boss1Phase2AttackState(Boss1StateController boss1StateSystem, Boss1 boss1, Boss1PatternSystem patternSystem)
+    public Boss1Phase2AttackState(Boss1StateController boss1StateController, Boss1 boss1, Boss1PatternSystem patternSystem)
     {
-        _boss1StateController = boss1StateSystem;
+        _boss1StateController = boss1StateController;
         _boss1 = boss1;
         _patternSystem = patternSystem;
     }

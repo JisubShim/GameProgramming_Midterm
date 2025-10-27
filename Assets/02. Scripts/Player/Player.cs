@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [Header("세팅")]
-    [SerializeField] private GameSystem _gameSystem;
+    [SerializeField] private GameOverController _gameSystem;
     [SerializeField] private Slider _hpBar;
     [SerializeField] private float _maxHp = 100f;
     [SerializeField] private float _hpDecreaseSpeed = 1f;
@@ -118,6 +118,7 @@ public class Player : MonoBehaviour
 
     public void GetDamage(float amount, bool isContinuousDamage = false)
     {
+        if (Boss1StateController.IsDead) return;
         if (!isContinuousDamage && _isInvincible) return;
 
         _currentHp -= amount;

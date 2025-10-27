@@ -32,7 +32,7 @@ public class SceneLoader : Singleton<SceneLoader>
     private IEnumerator LoadSceneProcess(string sceneName)
     {
         // 현재 씬 로드하면 무시
-        if (_currentSceneName == sceneName) yield break;
+        //if (_currentSceneName == sceneName) yield break;
 
         Debug.Log($"로딩 씬: {sceneName}");
 
