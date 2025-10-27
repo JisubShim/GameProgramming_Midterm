@@ -36,7 +36,8 @@ public class GroundController : MonoBehaviour
     private static bool _canSpawnItem = false;
 
     private GameObject _lastSpawnedItemPrefab = null;
-    private int _consecutiveItemSpawnCount = 0;
+    private static int _consecutiveItemSpawnCount = 0;
+    private static int _nonIndexZeroSpawnCount = 0;
 
     private void Start()
     {
@@ -46,6 +47,8 @@ public class GroundController : MonoBehaviour
 
     private void Update()
     {
+        if (GameController.IsGameOver) return;
+
         transform.position += _moveDirection * _moveSpeed * Time.deltaTime;
 
         if (_itemSpawnTimer > 0)
@@ -119,49 +122,69 @@ public class GroundController : MonoBehaviour
 
     private void SpawnSingleRandomItem()
     {
-        List<ItemSpawnData> availableItems = new List<ItemSpawnData>();
-        foreach (ItemSpawnData data in _itemSpawnDatas)
+        if (_itemSpawnDatas == null || _itemSpawnDatas.Length == 0)
         {
-            if (_lastSpawnedItemPrefab != null && data.itemPrefab == _lastSpawnedItemPrefab && _consecutiveItemSpawnCount >= 2)
-            {
-                continue;
-            }
-            availableItems.Add(data);
-        }
-
-        int totalWeight = 0;
-        foreach (ItemSpawnData data in availableItems)
-        {
-            totalWeight += data.spawnWeight;
-        }
-
-        if (totalWeight <= 0)
-        {
-            Debug.LogWarning("모든 아이템의 가중치 합이 0 이하 또는 사용 가능한 아이템이 없음. 아이템 생성 불가");
-            _lastSpawnedItemPrefab = null;
-            _consecutiveItemSpawnCount = 0;
+            Debug.LogWarning("아이템 스폰 데이터가 설정되지 않았습니다.");
             return;
         }
 
-        int randomWeight = Random.Range(0, totalWeight);
         GameObject selectedItemPrefab = null;
 
-        foreach (ItemSpawnData data in availableItems)
+        if (_nonIndexZeroSpawnCount >= 2)
         {
-            if (randomWeight < data.spawnWeight)
+            Debug.Log("총 아이템이 2번 나오지 않았으므로 확정 스폰");
+            selectedItemPrefab = _itemSpawnDatas[0].itemPrefab;
+        }
+        else
+        {
+            List<ItemSpawnData> availableItems = new List<ItemSpawnData>();
+            foreach (ItemSpawnData data in _itemSpawnDatas)
             {
-                selectedItemPrefab = data.itemPrefab;
-                break;
+                if (_lastSpawnedItemPrefab != null && data.itemPrefab == _lastSpawnedItemPrefab && _consecutiveItemSpawnCount >= 2)
+                {
+                    continue;
+                }
+                availableItems.Add(data);
             }
-            randomWeight -= data.spawnWeight;
+
+            int totalWeight = 0;
+            foreach (ItemSpawnData data in availableItems)
+            {
+                totalWeight += data.spawnWeight;
+            }
+
+            if (totalWeight <= 0)
+            {
+                Debug.LogWarning("모든 아이템의 가중치 합이 0 이하 또는 사용 가능한 아이템이 없음. 아이템 생성 불가");
+                return;
+            }
+
+            int randomWeight = Random.Range(0, totalWeight);
+
+            foreach (ItemSpawnData data in availableItems)
+            {
+                if (randomWeight < data.spawnWeight)
+                {
+                    selectedItemPrefab = data.itemPrefab;
+                    break;
+                }
+                randomWeight -= data.spawnWeight;
+            }
         }
 
         if (selectedItemPrefab == null)
         {
-            Debug.LogWarning("확률 계산 실패");
-            _lastSpawnedItemPrefab = null;
-            _consecutiveItemSpawnCount = 0;
+            Debug.LogWarning("확률 계산 실패 또는 선택된 아이템이 없음");
             return;
+        }
+
+        if (selectedItemPrefab == _itemSpawnDatas[0].itemPrefab)
+        {
+            _nonIndexZeroSpawnCount = 0;
+        }
+        else
+        {
+            _nonIndexZeroSpawnCount++;
         }
 
         if (selectedItemPrefab == _lastSpawnedItemPrefab)
@@ -178,9 +201,7 @@ public class GroundController : MonoBehaviour
         Transform spawnPoint = _itemTransform[randomPositionIndex];
 
         GameObject newItem = Instantiate(selectedItemPrefab, spawnPoint.position, spawnPoint.rotation);
-
         newItem.transform.SetParent(this.transform);
-
         _activeItems.Add(newItem);
     }
 

@@ -22,7 +22,7 @@ public class Boss1Phase2AttackState : IBossState
         {
             _boss1.Speak("¸Ó¸® À§ ÆøÅº Á¶½ÉÇÏ¶ó°í~");
             _patternSystem.PlayDropBombOnPlayer(count: 3, duration: 2.5f, initialWarningTime: 1.5f, moveSpeed: 15f);
-            _patternSystem.PlayThrowBombToPlayer(3, 4f, 8f, 2f);
+            _patternSystem.PlayThrowBombToPlayer(amount: 3, duration: 4f, arcHeight: 8f, travelTime: 2f);
         }
         else if (_playCount % 2 == 1)
         {

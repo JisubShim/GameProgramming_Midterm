@@ -8,8 +8,6 @@ public class PlayerMovement : MonoBehaviour
     private int _maxJumps = 2;
     private bool _isJump = false;
 
-    
-
     private Rigidbody2D _playerRigidbody;
     private Animator _playerAnimator;
     private int _currentJumps = 0;
@@ -23,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (GameController.IsGameOver) return;
+
         if (!_isJump && Input.GetKey(KeyCode.RightArrow))
         {
             _playerRigidbody.linearVelocity = new Vector2(_speed, _playerRigidbody.linearVelocity.y);

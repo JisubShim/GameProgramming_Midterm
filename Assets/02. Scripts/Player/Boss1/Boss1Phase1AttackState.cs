@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Boss1Phase1AttackState : IBossState
 {
@@ -23,7 +22,6 @@ public class Boss1Phase1AttackState : IBossState
         {
             _boss1.Speak("¸Ó¸® À§ ÆøÅº Á¶½ÉÇÏ¶ó°í~");
             _patternSystem.PlayDropBombOnPlayer(count: 3, duration: 3f, initialWarningTime: 2f, moveSpeed: 10f);
-            //_patternSystem.PlayThrowBombToPlayer(3, 4f, 8f, 2f);
         }
         else if(_playCount % 2 == 1)
         {

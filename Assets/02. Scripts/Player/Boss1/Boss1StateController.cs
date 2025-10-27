@@ -29,6 +29,7 @@ public class Boss1StateController : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.Instance.StartTimer();
         IsDead = false;
         _boss1 = GetComponent<Boss1>();
 

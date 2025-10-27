@@ -103,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetScale: 1.1
   _scaleDuration: 0.3
-  _healAmount: 30
+  _healAmount: 20
 --- !u!61 &3186395873805870365
 BoxCollider2D:
   m_ObjectHideFlags: 0

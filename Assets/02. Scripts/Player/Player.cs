@@ -1,20 +1,22 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [Header("세팅")]
-    [SerializeField] private GameOverController _gameSystem;
+    [SerializeField] private GameController _gameSystem;
     [SerializeField] private Slider _hpBar;
     [SerializeField] private float _maxHp = 100f;
     [SerializeField] private float _hpDecreaseSpeed = 1f;
 
     [Header("피격 관련")]
-    [SerializeField] private float _invincibilityDuration = 2f;
+    [SerializeField] private float _invincibilityDuration = 1f;
     [SerializeField] private float _blinkSpeed = 0.1f;
 
     [Header("사격 관련")]
+    [SerializeField] private TextMeshProUGUI _bulletCountText;
     [SerializeField] private Transform _gunTransform;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _muzzlePoint;
@@ -54,7 +56,19 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        GetDamage(_hpDecreaseSpeed * Time.deltaTime, true);
+        if (GameController.IsGameOver) return;
+
+        if (_canShoot)
+        {
+            _bulletCountText.gameObject.SetActive(true);
+            _bulletCountText.text = "총알 x" + (_maxBullets - _bulletsFired);
+        }
+        else
+        {
+            _bulletCountText.gameObject.SetActive(false);
+        }
+
+            GetDamage(_hpDecreaseSpeed * Time.deltaTime, true);
 
         HandleGunInput();
     }

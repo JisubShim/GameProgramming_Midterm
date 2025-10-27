@@ -4,7 +4,7 @@ public class Boss1Movement : MonoBehaviour
 {
     private Boss1StateController _stateController;
 
-    [Header("Phase 3 Movement Settings")]
+    [Header("Phase3 움직임 세팅")]
     [SerializeField] private float _verticalSpeed = 3f;
     [SerializeField] private float _movementDistance = 3f;
 

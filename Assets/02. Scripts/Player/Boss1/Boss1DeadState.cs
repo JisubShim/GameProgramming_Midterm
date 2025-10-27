@@ -14,6 +14,7 @@ public class Boss1DeadState : IBossState
 
     public void Enter()
     {
+        GameManager.Instance.EndTimer();
         _boss1.Speak("으악! 내가 지다니...");
         _boss1.Boss1Animator.SetTrigger("isDead");
         Boss1StateController.IsDead = true;
