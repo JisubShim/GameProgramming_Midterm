@@ -17,22 +17,22 @@ public class LobbyController : MonoBehaviour
         {
             _bestRecordText.text = "최고 기록: -, 기록없음";
         }
-        else if (GameManager.Instance.BestRecord <= 140f)
+        else if (GameManager.Instance.BestRecord <= 120f)
         {
             // A+
             _bestRecordText.text = "최고 기록: " + GameManager.Instance.BestRecord.ToString("F1") +"s" + ", A+";
         }
-        else if (GameManager.Instance.BestRecord <= 160f)
+        else if (GameManager.Instance.BestRecord <= 140f)
         {
             // A0
             _bestRecordText.text = "최고 기록: " + GameManager.Instance.BestRecord.ToString("F1") + "s" + ", A0";
         }
-        else if (GameManager.Instance.BestRecord <= 180f)
+        else if (GameManager.Instance.BestRecord <= 160f)
         {
             // B+
             _bestRecordText.text = "최고 기록: " + GameManager.Instance.BestRecord.ToString("F1") + "s" + ", B+";
         }
-        else if (GameManager.Instance.BestRecord <= 200f)
+        else if (GameManager.Instance.BestRecord <= 180f)
         {
             // B0
             _bestRecordText.text = "최고 기록: " + GameManager.Instance.BestRecord.ToString("F1") + "s" + ", B0";

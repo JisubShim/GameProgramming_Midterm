@@ -12,22 +12,22 @@ public class EndingResult : MonoBehaviour
     {
         _isEnd = false;
         _timerText.text = "소요 시간\n" + GameManager.Instance.Record.ToString("F1");
-        if(GameManager.Instance.Record <= 140f)
+        if(GameManager.Instance.Record <= 120f)
         {
             // A+
             _resultText.text = "결과 등급\nA+";
         }
-        else if(GameManager.Instance.Record <= 160f)
+        else if(GameManager.Instance.Record <= 140f)
         {
             // A0
             _resultText.text = "결과 등급\nA0";
         }
-        else if (GameManager.Instance.Record <= 180f)
+        else if (GameManager.Instance.Record <= 160f)
         {
             // B+
             _resultText.text = "결과 등급\nB+";
         }
-        else if (GameManager.Instance.Record <= 200f)
+        else if (GameManager.Instance.Record <= 180f)
         {
             // B0
             _resultText.text = "결과 등급\nB0";
