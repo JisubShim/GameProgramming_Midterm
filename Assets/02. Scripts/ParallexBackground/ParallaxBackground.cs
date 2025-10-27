@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ParallaxBackground_Type01 : MonoBehaviour
+public class ParallaxBackground : MonoBehaviour
 {
     [SerializeField] private Transform _target;
     [SerializeField] private float _moveSpeed;

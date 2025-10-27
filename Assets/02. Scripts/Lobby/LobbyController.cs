@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEngine.UI; // UI 요소를 사용하기 위해 추가
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro; // 씬 관리를 위해 추가 (선택적)
+using TMPro;
 
 public class LobbyController : MonoBehaviour
 {
