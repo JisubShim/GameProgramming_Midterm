@@ -56,6 +56,7 @@ public class Boss1 : MonoBehaviour
 
         if (!isContinuousDamage)
         {
+            SoundManager.Instance.PlaySFX("BossHit");
             _invincibleCoroutine = StartCoroutine(InvincibilityCoroutine(_invincibilityDuration));
         }
     }
@@ -109,7 +110,6 @@ public class Boss1 : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             GetDamage(1);
-            SoundManager.Instance.PlaySFX("BossHit");
             collision.gameObject.SetActive(false);
         }
     }
