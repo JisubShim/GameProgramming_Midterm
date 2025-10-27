@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager>
     {
         _isFlowTime = false;
         _record = _timer;
-        if (_record > _bestRecord)
+        if (_record < _bestRecord)
         {
             _bestRecord = _record;
             PlayerPrefs.SetFloat("BestRecord", _bestRecord);
