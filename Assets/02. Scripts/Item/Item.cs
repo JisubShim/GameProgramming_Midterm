@@ -20,6 +20,7 @@ public abstract class Item : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySFX("ItemPickUp");
             TriggerEffect(collision.GetComponent<Player>());
             Destroy(gameObject);
         }

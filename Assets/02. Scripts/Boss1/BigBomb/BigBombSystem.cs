@@ -33,7 +33,6 @@ public class BigBombSystem : MonoBehaviour
 
     private IEnumerator DropBombOnPlayerCoroutine(int count, float duration, float initialWarningTime = 2f, float moveSpeed = 10f)
     {
-        Debug.Log("DropBombOnPlayerCoroutine");
         if(count > _bombCount)
         {
             count = _bombCount;
@@ -44,6 +43,7 @@ public class BigBombSystem : MonoBehaviour
             _bigBombs[i].LotateOnPlayer();
             _bigBombs[i].gameObject.SetActive(true);
             _bigBombs[i].StartBoom(initialWarningTime, moveSpeed);
+            SoundManager.Instance.PlaySFX("WarningLine");
             yield return new WaitForSeconds(duration);
         }
         _isEnd = true;
@@ -57,6 +57,7 @@ public class BigBombSystem : MonoBehaviour
             return;
         }
         _isEnd = false;
+        SoundManager.Instance.PlaySFX("WarningLine");
         _coroutine = StartCoroutine(DropMultipleBombsCoroutine(count, initialWarningTime, moveSpeed));
     }
 

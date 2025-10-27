@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
+        SoundManager.Instance.PlaySFX("GunShoot");
         GameObject newBullet = Instantiate(_bulletPrefab, _muzzlePoint.position, _muzzlePoint.rotation);
         Rigidbody2D bulletRb = newBullet.GetComponent<Rigidbody2D>();
 
@@ -147,6 +148,7 @@ public class Player : MonoBehaviour
             _hpBar.value = _currentHp;
             if (!isContinuousDamage)
             {
+                SoundManager.Instance.PlaySFX("Damage");
                 StartCoroutine(InvincibilityCoroutine());
             }
         }

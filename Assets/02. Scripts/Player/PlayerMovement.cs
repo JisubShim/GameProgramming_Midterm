@@ -52,14 +52,16 @@ public class PlayerMovement : MonoBehaviour
         if (_currentJumps == 0)
         {
             _playerAnimator.SetTrigger("isJump");
+            SoundManager.Instance.PlaySFX_CustomStart("Jump1", 0.1f);
         }
 
         if (_currentJumps == 1)
         {
             _playerAnimator.SetTrigger("isDoubleJump");
+            SoundManager.Instance.PlaySFX_CustomStart("Jump2", 0.1f);
         }
 
-            _playerRigidbody.linearVelocity = new Vector2(_playerRigidbody.linearVelocity.x, 0);
+        _playerRigidbody.linearVelocity = new Vector2(_playerRigidbody.linearVelocity.x, 0);
         _playerRigidbody.AddForce(Vector3.up * _jumpForce, ForceMode2D.Impulse);
 
         _currentJumps++;

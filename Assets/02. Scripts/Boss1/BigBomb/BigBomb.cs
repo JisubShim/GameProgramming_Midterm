@@ -79,11 +79,13 @@ public class BigBomb : MonoBehaviour
     {
         if (collision.CompareTag("Ground"))
         {
+            SoundManager.Instance.PlaySFX("BigBombExplosion");
             _bigBoomAnimator.SetTrigger("isBoom");
             _isBoom = true;
         }
         else if (collision.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySFX("BigBombExplosion");
             _bigBoomAnimator.SetTrigger("isBoom");
             _isBoom = true;
             _player.GetDamage(_damage);

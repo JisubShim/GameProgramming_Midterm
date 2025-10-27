@@ -17,6 +17,7 @@ public class Boss1NextPhaseState : IBossState
 
     public void Enter()
     {
+        SoundManager.Instance.PlaySFX("NextPhase");
         _currentTime = 0f;
         _boss1StateController.GoNextPhase();
         _boss1.ActivateInvincible(true);

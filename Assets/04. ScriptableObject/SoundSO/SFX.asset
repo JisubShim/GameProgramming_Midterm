@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd41fc2ea315df4f93f46aa79841989, type: 3}
+  m_Name: SFX
+  m_EditorClassIdentifier: 
+  soundClips:
+  - name: Jump1
+    description: 
+    clip: {fileID: 8300000, guid: ca1efcc0259b68744ab9a33ef8addec2, type: 3}
+    volume: 1
+  - name: Jump2
+    description: 
+    clip: {fileID: 8300000, guid: 2caafd4353b274e4eaf1891cd37aba18, type: 3}
+    volume: 1
+  - name: GunShoot
+    description: 
+    clip: {fileID: 8300000, guid: 67178446235181b4a8f918fde984fe25, type: 3}
+    volume: 1
+  - name: ItemPickUp
+    description: 
+    clip: {fileID: 8300000, guid: 3306ffc0d15847d47ba1d8f51de07332, type: 3}
+    volume: 1
+  - name: Damage
+    description: 
+    clip: {fileID: 8300000, guid: deaef5f83c3e6a145a31929b81f156b3, type: 3}
+    volume: 1
+  - name: BigBombExplosion
+    description: 
+    clip: {fileID: 8300000, guid: ce9e807f52258a34b9aea02634d19bb8, type: 3}
+    volume: 0.7
+  - name: ThrowableBombExplosion
+    description: 
+    clip: {fileID: 8300000, guid: 1beaa2bfc0685ad4fb052dfd65b217f6, type: 3}
+    volume: 0.7
+  - name: WarningLine
+    description: 
+    clip: {fileID: 8300000, guid: 6ff1859fadd41d343bc1f3ac7db5d059, type: 3}
+    volume: 1
+  - name: NextPhase
+    description: 
+    clip: {fileID: 8300000, guid: 532f415b607afd74caa137f0a6bc4721, type: 3}
+    volume: 1
+  - name: BossHit
+    description: 
+    clip: {fileID: 8300000, guid: 94124d669e12ffc44bff561441ee9076, type: 3}
+    volume: 1

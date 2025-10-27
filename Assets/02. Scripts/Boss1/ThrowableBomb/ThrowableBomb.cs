@@ -55,6 +55,8 @@ public class ThrowableBomb : MonoBehaviour
 
         _isExploding = true;
         _animator.SetTrigger("isBoom");
+        SoundManager.Instance.PlaySFX("ThrowableBombExplosion");
+
     }
 
     // 애니메이션 이벤트 등록함
@@ -67,6 +69,7 @@ public class ThrowableBomb : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySFX("ThrowableBombExplosion");
             collision.gameObject.GetComponent<Player>().GetDamage(_damage);
             Explode();
         }

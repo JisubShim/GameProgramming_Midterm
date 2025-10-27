@@ -33,6 +33,11 @@ public class Boss1 : MonoBehaviour
         _currentHp = _maxHp;
     }
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayBGM("InGameBGM");
+    }
+
     void Update()
     {
         _boss1HpTMP.text = "HP: " + _currentHp;
@@ -104,6 +109,7 @@ public class Boss1 : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             GetDamage(1);
+            SoundManager.Instance.PlaySFX("BossHit");
             collision.gameObject.SetActive(false);
         }
     }
